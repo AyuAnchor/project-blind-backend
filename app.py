@@ -1,4 +1,4 @@
-from flask import Flask, request, send_file, jsonify
+from flask import Flask, request, jsonify, send_file, send_from_directory
 from flask_cors import CORS
 from helpers import draw_boxes_on_image
 from yolo_utils import get_detections
@@ -8,6 +8,10 @@ import io
 app = Flask(__name__)
 CORS(app)  # To allow cross-origin requests
 
+@app.route('/')
+def home():
+    return send_from_directory('static', 'index.html')
+    
 @app.route('/detect', methods=['POST'])
 def detect_objects():
     if 'image' not in request.files:

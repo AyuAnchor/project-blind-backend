@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flask YOLOv8 Object Detection API</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        header {
+            background: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        h1 {
+            color: #ffffff;
+            margin-top: 0;
+        }
+        h2, h3 {
+            color: #333;
+        }
+        p {
+            margin: 10px 0;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        ul li {
+            margin: 5px 0;
+        }
+        pre {
+            background-color: #eee;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+        a {
+            color: #1a73e8;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .section {
+            margin: 20px 0;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .footer {
+            text-align: center;
+            padding: 10px;
+            background: #333;
+            color: #fff;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Flask YOLOv8 Object Detection API</h1>
+    </header>
+    <div class="container">
+        <div class="section">
+            <h2>Welcome</h2>
+            <p>Welcome to the YOLOv8 Object Detection API. Below is how you can use the API:</p>
+        </div>
+        <div class="section">
+            <h2>Endpoints</h2>
+            <h3>/detect</h3>
+            <p><strong>Method:</strong> POST</p>
+            <p><strong>Parameters:</strong></p>
+            <ul>
+                <li><strong>image</strong> (file): The image file to be processed. <em>Required</em></li>
+                <li><strong>download</strong> (optional, boolean): If <code>true</code>, the API returns the image with detections. Default is <code>false</code>.</li>
+            </ul>
+            <p><strong>Example requests:</strong></p>
+            <ul>
+                <li><strong>To receive JSON data:</strong></li>
+                <pre><code>curl -X POST http://localhost:10000/detect -F "image=@path/to/your/image.jpg"</code></pre>
+                <li><strong>To download the image with detections:</strong></li>
+                <pre><code>curl -X POST "http://localhost:10000/detect?download=true" -F "image=@path/to/your/image.jpg" --output detected_image.jpg</code></pre>
+            </ul>
+        </div>
+        <div class="section">
+            <h2>Project Structure</h2>
+            <ul>
+                <li><strong>app.py</strong>: Main Flask application file.</li>
+                <li><strong>helpers.py</strong>: Contains image processing and drawing functions.</li>
+                <li><strong>yolo_utils.py</strong>: Contains YOLO model and detection functions.</li>
+                <li><strong>requirements.txt</strong>: List of Python dependencies.</li>
+                <li><strong>.gitignore</strong>: Specifies files and directories to ignore in Git.</li>
+                <li><strong>README.md</strong>: Project documentation file.</li>
+            </ul>
+        </div>
+        <div class="section">
+            <h2>Contact</h2>
+            <p>For any questions or feedback, please contact <a href="mailto:blind.project.nits@gmail.com">blind.project.nits@gmail.com</a>.</p>
+        </div>
+    </div>
+    <footer class="footer">
+        &copy; 2024 Project Blind
+    </footer>
+    <br><br>
+</body>
+</html>
