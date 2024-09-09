@@ -42,4 +42,4 @@ def detect_objects():
     return jsonify({'objects': objects})
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=False)
