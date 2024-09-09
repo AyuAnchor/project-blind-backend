@@ -1,14 +1,12 @@
-from flask import Flask, request, jsonify
-import cv2
-import numpy as np
+from flask import Flask, request, send_file, jsonify
 from flask_cors import CORS
-from ultralytics import YOLO
+from helpers import draw_boxes_on_image
+from yolo_utils import get_detections
+from PIL import Image
+import io
 
 app = Flask(__name__)
 CORS(app)  # To allow cross-origin requests
-
-# Load YOLOv8 model
-model = YOLO('weights/yolov8n.pt')  # Use a YOLOv8 model (e.g., 'yolov8n.pt' for YOLOv8 nano)
 
 @app.route('/detect', methods=['POST'])
 def detect_objects():
@@ -17,29 +15,32 @@ def detect_objects():
     
     # Read the image from the request
     file = request.files['image']
-    img = cv2.imdecode(np.frombuffer(file.read(), np.uint8), cv2.IMREAD_COLOR)
+    if not file:
+        return jsonify({'error': 'No file uploaded'}), 400
+
+    # Load the image as a PIL Image
+    try:
+        img = Image.open(file)
+    except Exception as e:
+        return jsonify({'error': str(e)}), 400
     
-    # Perform object detection
-    results = model(img)
-    
-    # Extract results
-    detections = results[0].boxes.xyxy.cpu().numpy()  # x1, y1, x2, y2, confidence, class
-    classes = results[0].boxes.cls.cpu().numpy()
-    confidences = results[0].boxes.conf.cpu().numpy()
-    
-    objects = []
-    for i in range(len(detections)):
-        x1, y1, x2, y2 = detections[i]
-        objects.append({
-            'x1': int(x1),
-            'y1': int(y1),
-            'x2': int(x2),
-            'y2': int(y2),
-            'confidence': float(confidences[i]),
-            'class': model.names[int(classes[i])]
-        })
-    
-    return jsonify({'objects': objects})
+    # Get detections
+    detections = get_detections(img)
+
+    # Get 'download' query parameter
+    download = request.args.get('download', 'false').lower() in ['true', '1']
+
+    if download:
+        image = draw_boxes_on_image(img, detections)
+        # Save the image to a BytesIO object
+        img_io = io.BytesIO()
+        image.save(img_io, 'JPEG')
+        img_io.seek(0)
+        return send_file(img_io, mimetype='image/jpeg', as_attachment=True, download_name='detected_image.jpg')
+
+    else:
+        # Return JSON with detection results
+        return jsonify(detections)
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=10000)
