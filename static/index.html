@@ -98,9 +98,9 @@
             <p><strong>Example requests:</strong></p>
             <ul>
                 <li><strong>To receive JSON data:</strong></li>
-                <pre><code>curl -X POST http://localhost:10000/detect -F "image=@path/to/your/image.jpg"</code></pre>
+                <pre><code>curl -X POST https://projectblind.pythonanywhere.com/detect -H "Content-Type: multipart/form-data" -F "image=@images/cycles.jpg"</code></pre>
                 <li><strong>To download the image with detections:</strong></li>
-                <pre><code>curl -X POST "http://localhost:10000/detect?download=true" -F "image=@path/to/your/image.jpg" --output detected_image.jpg</code></pre>
+                <pre><code>curl -X POST https://projectblind.pythonanywhere.com/detect?download=true -H "Content-Type: multipart/form-data" -F "image=@./images/cycles.jpg" --output detected_image.jpg</code></pre>
             </ul>
         </div>
         <div class="section">
