@@ -1,7 +1,7 @@
 from ultralytics import YOLO
 
-# Load YOLOv8 model
-model = YOLO('weights/yolov8n.pt')  # Use a YOLOv8 model (e.g., 'yolov8n.pt' for YOLOv8 nano)
+# Load YOLO11 model
+model = YOLO('weights/yolo11l.pt')  # Use a YOLO11 model (e.g., 'yolo11n.pt' for YOLO11 nano)
 
 def get_detections(img):
     # Perform object detection

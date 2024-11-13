@@ -1,6 +1,6 @@
-# Flask YOLOv8 Object Detection API
+# Flask YOLO11 Object Detection API
 
-This project provides a Flask-based API for object detection using the YOLOv8 model. The API allows users to upload images and receive either JSON data with detection results or a downloadable image with bounding boxes drawn around detected objects.
+This project provides a Flask-based API for object detection using the YOLO11 model. The API allows users to upload images and receive either JSON data with detection results or a downloadable image with bounding boxes drawn around detected objects.
 
 ## Features
 
@@ -14,7 +14,7 @@ This project provides a Flask-based API for object detection using the YOLOv8 mo
 - Python 3.7+
 - Flask
 - Flask-CORS
-- Ultralytics YOLOv8
+- Ultralytics YOLO11
 - Pillow
 
 ## Installation
@@ -108,6 +108,6 @@ This project provides a Flask-based API for object detection using the YOLOv8 mo
 
 
 ## Acknowledgements
-- YOLOv8 for object detection.
+- YOLO11 for object detection.
 - Pillow for image processing.
 - Flask for web framework.
